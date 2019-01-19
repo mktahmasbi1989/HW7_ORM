@@ -1,0 +1,46 @@
+<resources>
+    <string name="app_name">To Do List</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="description">جزئیات :</string>
+    <string name="date">تاریخ</string>
+    <string name="time">زمان</string>
+    <string name="edite">ویرایش</string>
+    <string name="delete">حدف</string>
+    <string name="done">انجام شد</string>
+    <string name="job_title">عنوان</string>
+    <string name="details">جزئیات</string>
+    <string name="add_job">اضافه کردن</string>
+    <string name="Title">عنوان</string>
+    <string name="Describe">جزئیات</string>
+    <string name="date_textView">تاریخ</string>
+    <string name="time_textView">ساعت</string>
+    <string name="edite_textView">ویرایش</string>
+    <string name="delete_textView">حذف</string>
+    <string name="done_textView">انجام شد</string>
+    <string name="sing_in">ثبت نام</string>
+    <string name="log_in">ورود</string>
+    <string name="skip">بیخیال</string>
+    <string name="sign_up">ثبت نام</string>
+    <string name="password">رمز عبور</string>
+    <string name="name">نام</string>
+    <string name="email">ایمیل</string>
+    <string name="repeatpass">تکرار رمز عبور</string>
+    <string name="repeat_password"> تکرار رمز عبور</string>
+    <string name="enterTiltle">عنوان را وارد کنید</string>
+    <string name="deleteAll">حذف همه</string>
+    <string name="enterNmae">نام  را درست وارد کنید</string>
+    <string name="enterPass">رمز عبور را درست وارد کنید</string>
+    <string name="enterPassRepeate">رمز عبور درست وارد نشده است</string>
+    <string name="enterEmail">ایمیل را درست وارد کنید</string>
+    <string name="UserNmae">نام کاربری :</string>
+    <string name="passWord">رمز عبور :</string>
+    <string name="deleteAlla">میخوای همه رو حدف کنی؟</string>
+    <string name="deleteAlll">حدف همه</string>
+    <string name="Exit">خروج</string>
+    <string name="wrongUserOrPass">نام کاربری یا رمز عبور اشتباه است</string>
+    <string name="fakeUsername">fakeName</string>
+    <string name="fakePassWord">fakePass</string>
+    <string name="fakeEmail">fakeEmail</string>
+</resources>
