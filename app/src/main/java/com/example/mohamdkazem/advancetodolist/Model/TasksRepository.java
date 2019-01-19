@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.example.mohamdkazem.advancetodolist.App;
@@ -222,12 +223,27 @@ public class TasksRepository {
 
     public boolean loginUser(String userName, String passWord) {
         List<Users> usersList = usersDao.loadAll();
+        Users users=null;
         for (int i = 0; i <usersList.size(); i++) {
             if (usersList.get(i).getName().equals(userName) && usersList.get(i).getPassword().equals(passWord)){
+                users=usersList.get(i);
                 return true;
             }
         }
         return false;
+    }
+
+    public Long getUserId(String name,String pass){
+        Long userId ;
+        List<Users> usersList = usersDao.loadAll();
+        for (int i = 0; i <usersList.size(); i++) {
+            if (usersList.get(i).getName().equals(name) && usersList.get(i).getPassword().equals(pass)){
+                userId=usersList.get(i).getUserId();
+                return userId;
+            }
+        }
+        return null;
+
     }
 
 }

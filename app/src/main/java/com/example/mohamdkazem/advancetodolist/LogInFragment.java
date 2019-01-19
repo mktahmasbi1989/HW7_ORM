@@ -10,16 +10,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
-
-import com.example.mohamdkazem.advancetodolist.Model.DaoSession;
-import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 import com.example.mohamdkazem.advancetodolist.Model.Users;
-import com.example.mohamdkazem.advancetodolist.Model.UsersDao;
 
-import org.greenrobot.greendao.annotation.ToOne;
-
-import java.util.List;
 
 
 /**
@@ -58,21 +51,13 @@ public class LogInFragment extends Fragment {
                 String userName = mEditTextname.getText().toString().trim();
                 String passWord = mEditTextPassWord.getText().toString().trim();
 
-                if (TasksRepository.getInstance(getActivity()).loginUser(userName,passWord)){
-                    Toast.makeText(getActivity(),"Ok",Toast.LENGTH_SHORT).show();
-                }else Toast.makeText(getActivity(),"fsdfsdfds",Toast.LENGTH_SHORT).show();
+                if (TasksRepository.getInstance(getActivity()).loginUser(userName,passWord)) {
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), TasksRepository.getInstance(getActivity()).getUserId(userName,passWord)));
+                    startActivity(intent);
+                    Toast.makeText(getActivity(), "Ok", Toast.LENGTH_SHORT).show();
+                }else
 
-
-
-//                Users user = TasksRepository.getInstance(getActivity()).getUser(userName, passWord);
-//                if (user != null) {
-//                        getActivity().finish();
-//                        Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), user.getUserId()));
-//                        startActivity(intent);
-//
-//                } else
-//                    Toast.makeText(getActivity(), getString(R.string.wrongUserOrPass), Toast.LENGTH_SHORT).show();
-
+                    Toast.makeText(getActivity(), "Wrong User", Toast.LENGTH_SHORT).show();
             }
         });
 
