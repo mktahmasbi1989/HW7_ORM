@@ -134,12 +134,12 @@ public class TaskDetailFragment extends Fragment {
         mBtnDone.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
             mTask.setMDone(true);
-            TasksRepository.getInstance(getActivity()).setDoneTask(mTask);
-            Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(), (long) ToDoListActivity.mId));
+            TasksRepository.getInstance(getActivity()).setDoneTaskORM(mTask);
+            Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(),setUsersId.getUserId()));
             startActivity(intent);
-//                updateFragments();
-//                getActivity().getSupportFragmentManager().popBackStack();
+
 
             }
         });

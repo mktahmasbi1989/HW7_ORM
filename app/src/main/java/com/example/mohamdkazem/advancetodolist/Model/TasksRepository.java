@@ -280,5 +280,15 @@ public class TasksRepository {
         return  null;
     }
 
+    public void setDoneTaskORM(Task task){
+        List<Task> list=taskDao.loadAll();
+        for (int i = 0; i <list.size() ; i++) {
+            if (task.getUserId().equals(list.get(i).getUserId())){
+                taskDao.update(task);
+            }
+        }
+    }
+
+
 }
 
