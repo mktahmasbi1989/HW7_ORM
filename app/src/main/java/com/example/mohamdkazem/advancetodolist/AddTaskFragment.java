@@ -111,7 +111,7 @@ public class AddTaskFragment extends DialogFragment {
                 {
                     String title=mEditTextJobTitle.getText().toString();
                     String detail= mEditTextDetail.getText().toString();
-                    mTask =new Task(title,detail,myDate);
+                    mTask =new Task(title,detail,myDate,setUsersId.getUserId());
 
 //                        TasksRepository.getInstance(getActivity()).addToAllList(mTask);
                         TasksRepository.getInstance(getActivity()).addTaskORM(mTask);

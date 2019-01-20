@@ -248,10 +248,22 @@ public class TasksRepository {
     public List<Task> getTaskListORM(){
         List<Task> taskList=new ArrayList<>();
         taskList=taskDao.loadAll();
-
         return taskList;
+    }
+
+    public List<Task> getUserTaskListORM(Long userId){
+
+        List<Task> taskList=new ArrayList<>();
+        List<Task> returnList=new ArrayList<>();
+        for (int i = 0; i <taskList.size() ; i++) {
+            if (taskList.get(i).getUserId().equals(userId)){
+                returnList.add(taskList.get(i));
+            }
+        }
+        return returnList;
 
     }
+
     public void addTaskORM(Task task){
         taskDao.insert(task);
 

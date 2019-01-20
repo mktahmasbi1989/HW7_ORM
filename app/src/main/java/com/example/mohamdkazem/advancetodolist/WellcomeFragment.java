@@ -23,6 +23,7 @@ import com.example.mohamdkazem.advancetodolist.Model.Users;
 public class WellcomeFragment extends Fragment {
     private static final String TAG_SIGN_UP = "com.example.mohamdkazem.advancetodolistsign_up";
     private Button btnSignIn,btnLogIn,btnSkip;
+    public static  Long userId;
 
     public static WellcomeFragment newInstance() {
 
@@ -68,7 +69,8 @@ public class WellcomeFragment extends Fragment {
                 Users users=new Users(getString(R.string.fakeUsername),getString(R.string.fakePassWord),getString(R.string.fakeEmail));
 
                 TasksRepository.getInstance(getActivity()).addUserORM(users);
-                Toast.makeText(getActivity(),users.getUserId().toString(),Toast.LENGTH_LONG).show();
+                setUsersId.setUserId(users.getUserId());
+//                Toast.makeText(getActivity(),users.getUserId().toString(),Toast.LENGTH_LONG).show();
 //
 //                TasksRepository.getInstance(getActivity()).addUsers(users);
 //                Users user = TasksRepository.getInstance(getActivity()).getUser(getString(R.string.fakeUsername), getString(R.string.fakePassWord));
@@ -89,6 +91,8 @@ public class WellcomeFragment extends Fragment {
 
         return  view;
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

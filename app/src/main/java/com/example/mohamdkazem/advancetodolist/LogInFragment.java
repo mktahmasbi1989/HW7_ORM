@@ -52,6 +52,9 @@ public class LogInFragment extends Fragment {
                 String passWord = mEditTextPassWord.getText().toString().trim();
 
                 if (TasksRepository.getInstance(getActivity()).loginUser(userName,passWord)) {
+
+                    setUsersId.setUserId(TasksRepository.getInstance(getActivity()).getUserId(userName,passWord));
+
                     Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), TasksRepository.getInstance(getActivity()).getUserId(userName,passWord)));
                     startActivity(intent);
                     Toast.makeText(getActivity(), "Ok", Toast.LENGTH_SHORT).show();
