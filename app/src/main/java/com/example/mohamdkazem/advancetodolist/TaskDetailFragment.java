@@ -113,7 +113,6 @@ public class TaskDetailFragment extends Fragment {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
 
-
 //                                    TasksRepository.getInstance(getActivity()).delete(mTask);
                                     TasksRepository.getInstance(getActivity()).removeTask(mTask);
                                     Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(), setUsersId.getUserId()));
@@ -153,8 +152,9 @@ public class TaskDetailFragment extends Fragment {
                 mTask.setMTitle(mTextTextViewTitle.getText().toString());
                 mTask.setMDetail(mTextViewDescribtion.getText().toString());
 
-                    TasksRepository.getInstance(getActivity()).upDate(mTask);
-                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), (long) ToDoListActivity.mId));
+                TasksRepository.getInstance(getActivity()).upDateTask(mTask);
+//                    TasksRepository.getInstance(getActivity()).upDate(mTask);
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), (setUsersId.getUserId())));
                     startActivity(intent);
 //                getActivity().getSupportFragmentManager().getFragments().get(1).onActivityResult(1, Activity.RESULT_OK,new Intent());
 //                getActivity().getSupportFragmentManager().getFragments().get(0).onActivityResult(0,Activity.RESULT_OK,new Intent());

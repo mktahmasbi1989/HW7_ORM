@@ -295,6 +295,9 @@ public class TasksRepository {
     public void removeTask(Task task){
         taskDao.delete(task);
     }
+    public void upDateTask(Task task){
+        taskDao.update(task);
+    }
 
 
 }
