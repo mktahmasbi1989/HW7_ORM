@@ -150,7 +150,7 @@ public class AllTasksFragment extends Fragment {
 
     private void upDateUI() {
 
-            List<Task> mListTask = TasksRepository.getInstance(getActivity()).getUserTaskListORM((WellcomeFragment.userId));
+            List<Task> mListTask = TasksRepository.getInstance(getActivity()).getUserTaskListORM((setUsersId.getUserId()));
             if (mListTask.size() == 0) {
                 mTextViewNoTask.setVisibility(View.VISIBLE);
             }
