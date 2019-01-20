@@ -205,15 +205,12 @@ public class TasksRepository {
     public DaoSession getDaoSession() {
         return daoSession;
     }
-
     public void setDaoSession(DaoSession daoSession) {
         this.daoSession = daoSession;
     }
-
     public UsersDao getUsersDao() {
         return usersDao;
     }
-
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
     }
@@ -250,11 +247,10 @@ public class TasksRepository {
         taskList=taskDao.loadAll();
         return taskList;
     }
-
-    public List<Task> getDoneTaskListORM(){
+    public List<Task> getDoneTaskListORM(Long userId){
         List<Task> taskList=new ArrayList<>();
         List<Task> doneList=new ArrayList<>();
-        taskList=taskDao.loadAll();
+        taskList=getUserTaskListORM(userId);
         for (int i = 0; i <taskList.size() ; i++) {
             if (taskList.get(i).getMDone()){
                 doneList.add(taskList.get(i));
@@ -262,7 +258,6 @@ public class TasksRepository {
         }
         return doneList;
     }
-
     public List<Task> getUserTaskListORM(Long userId){
         List<Task> taskList=new ArrayList<>();
         taskList=taskDao.loadAll();
@@ -276,12 +271,10 @@ public class TasksRepository {
         }
         return returnList;
     }
-
     public void addTaskORM(Task task){
         taskDao.insert(task);
 
     }
-
     public Task getTaskORm(Long id){
         List<Task> list=taskDao.loadAll();
         for (int i = 0; i <list.size() ; i++) {
@@ -291,7 +284,6 @@ public class TasksRepository {
         }
         return  null;
     }
-
     public void setDoneTaskORM(Task task){
         List<Task> list=taskDao.loadAll();
         for (int i = 0; i <list.size() ; i++) {

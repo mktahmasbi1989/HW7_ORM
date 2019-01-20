@@ -29,6 +29,7 @@ import java.util.Objects;
  * A simple {@link Fragment} subclass.
  */
 public class DoneTasksFragment extends Fragment {
+    private static final String TAG_DIALOG = "dialog_detail";
     private RecyclerView mRecyclerView;
     private DonJobAdaptor mDonJobAdaptor;
     private FloatingActionButton floatingActionButton;
@@ -66,7 +67,7 @@ public class DoneTasksFragment extends Fragment {
 
     private void upDateUI() {
 
-            List<Task> mListTask = TasksRepository.getInstance(getActivity()).getDoneTaskListORM();
+            List<Task> mListTask = TasksRepository.getInstance(getActivity()).getDoneTaskListORM(setUsersId.getUserId());
             if (mDonJobAdaptor == null) {
                 mDonJobAdaptor = new DonJobAdaptor(mListTask);
                 mRecyclerView.setAdapter(mDonJobAdaptor);
@@ -129,9 +130,8 @@ public class DoneTasksFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    TaskDetailFragment taskDetailFragment = TaskDetailFragment.newInstance(mTask.getUserId());
-                    Objects.requireNonNull(getActivity()).getSupportFragmentManager().beginTransaction().addToBackStack("detail")
-                            .replace(R.id.mainLayout, taskDetailFragment).commit();
+                    ShowTAskDetailDialog showTAskDetailDialog=ShowTAskDetailDialog.newInstance(setUsersId.getUserId());
+                    showTAskDetailDialog.show(getFragmentManager(),TAG_DIALOG);
                 }
             });
         }
