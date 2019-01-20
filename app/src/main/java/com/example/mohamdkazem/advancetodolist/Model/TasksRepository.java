@@ -292,6 +292,9 @@ public class TasksRepository {
             }
         }
     }
+    public void removeTask(Task task){
+        taskDao.delete(task);
+    }
 
 
 }

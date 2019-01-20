@@ -21,7 +21,6 @@ import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.UUID;
 
 
 /**
@@ -36,7 +35,7 @@ public class TaskDetailFragment extends Fragment {
     private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.time dialog" ;
     private static final String ARG_USER_ID = "user_Id";
 
-    private Button mBtnEdite,mBtnDelete,mBtnDone;
+    private Button mBtnEdit,mBtnDelete,mBtnDone;
     private TextView mTextViewDate,mTextViewTime;
     private EditText mTextViewDescribtion,mTextTextViewTitle;
     private Task mTask;
@@ -115,8 +114,9 @@ public class TaskDetailFragment extends Fragment {
                             public void onClick(DialogInterface dialog, int which) {
 
 
-                                    TasksRepository.getInstance(getActivity()).delete(mTask);
-                                    Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(), (long) ToDoListActivity.mId));
+//                                    TasksRepository.getInstance(getActivity()).delete(mTask);
+                                    TasksRepository.getInstance(getActivity()).removeTask(mTask);
+                                    Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(), setUsersId.getUserId()));
                                     startActivity(intent);
 
 
@@ -144,7 +144,7 @@ public class TaskDetailFragment extends Fragment {
             }
         });
 
-        mBtnEdite.setOnClickListener(new View.OnClickListener() {
+        mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 //                mTask.setDetail(mTextViewDescribtion.getText().toString());
@@ -174,7 +174,7 @@ public class TaskDetailFragment extends Fragment {
     private void init(View view) {
         mBtnDelete=view.findViewById(R.id.btn_delete);
         mBtnDone=view.findViewById(R.id.btn_done);
-        mBtnEdite=view.findViewById(R.id.btn_edite);
+        mBtnEdit =view.findViewById(R.id.btn_edite);
         mTextViewDescribtion=view.findViewById(R.id.textView_description);
         mTextViewDate=view.findViewById(R.id.textView_date);
         mTextViewTime=view.findViewById(R.id.textView_time);
