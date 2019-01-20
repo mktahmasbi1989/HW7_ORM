@@ -207,7 +207,7 @@ public class AllTasksFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowTAskDetailDialog showTAskDetailDialog=ShowTAskDetailDialog.newInstance(mTask);
+                    ShowTAskDetailDialog showTAskDetailDialog=ShowTAskDetailDialog.newInstance(mTask.getTaskId());
                     showTAskDetailDialog.show(getFragmentManager(),TAG_DIALOG_DETAIL);
                 }
             });

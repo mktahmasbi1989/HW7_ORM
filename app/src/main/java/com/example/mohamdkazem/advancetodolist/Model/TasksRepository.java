@@ -270,5 +270,15 @@ public class TasksRepository {
 
     }
 
+    public Task getTaskORm(Long id){
+        List<Task> list=taskDao.loadAll();
+        for (int i = 0; i <list.size() ; i++) {
+            if (list.get(i).getUserId().equals(id)){
+                return list.get(i);
+            }
+        }
+        return  null;
+    }
+
 }
 

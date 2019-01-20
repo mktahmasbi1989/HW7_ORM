@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.mohamdkazem.advancetodolist.Model.Task;
+import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
@@ -25,12 +26,13 @@ public class ShowTAskDetailDialog extends DialogFragment {
     private Task mTask;
     private TextView mTextTitle,mTextTime,mTextDetail,mTextDate;
     private Button mBtnEdit;
+    private Long taskId;
 
 
 
-    public static ShowTAskDetailDialog newInstance(Task task) {
+    public static ShowTAskDetailDialog newInstance(Long taskId) {
         Bundle args = new Bundle();
-        args.putSerializable(ARG_TASK, (Serializable) task);
+        args.putSerializable(ARG_TASK, taskId);
         ShowTAskDetailDialog fragment = new ShowTAskDetailDialog();
         fragment.setArguments(args);
         return fragment;
@@ -40,7 +42,8 @@ public class ShowTAskDetailDialog extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTask= (Task) getArguments().getSerializable(ARG_TASK);
+        taskId=getArguments().getLong(ARG_TASK);
+        mTask= TasksRepository.getInstance(getActivity()).getTaskORm(taskId);
     }
 
     @Nullable

@@ -66,18 +66,22 @@ public class WellcomeFragment extends Fragment {
         btnSkip.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Users users=new Users(getString(R.string.fakeUsername),getString(R.string.fakePassWord),getString(R.string.fakeEmail));
+                if (!TasksRepository.getInstance(getActivity()).loginUser(getString(R.string.fakeUsername), getString(R.string.fakePassWord))) {
+                    Users users = new Users(getString(R.string.fakeUsername), getString(R.string.fakePassWord), getString(R.string.fakeEmail));
+                    TasksRepository.getInstance(getActivity()).addUserORM(users);
+                    setUsersId.setUserId(users.getUserId());
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), users.getUserId()));
+                    startActivity(intent);
+                    getActivity().finish();
 
-                TasksRepository.getInstance(getActivity()).addUserORM(users);
-                setUsersId.setUserId(users.getUserId());
-//                Toast.makeText(getActivity(),users.getUserId().toString(),Toast.LENGTH_LONG).show();
-//
-//                TasksRepository.getInstance(getActivity()).addUsers(users);
-//                Users user = TasksRepository.getInstance(getActivity()).getUser(getString(R.string.fakeUsername), getString(R.string.fakePassWord));
-//
-                Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(),users.getUserId()));
-                startActivity(intent);
-                getActivity().finish();
+                } else {
+                    Long userId= TasksRepository.getInstance(getActivity()).getUserId(getString(R.string.fakeUsername), getString(R.string.fakePassWord));
+                    setUsersId.setUserId(userId);
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), userId));
+                    startActivity(intent);
+                    getActivity().finish();
+                }
+
             }
         });
 
