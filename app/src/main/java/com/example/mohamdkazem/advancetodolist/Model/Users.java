@@ -13,6 +13,7 @@ public class Users {
     private String password;
     private String email;
 
+
     @Id(autoincrement = true)
     private Long userId;
 

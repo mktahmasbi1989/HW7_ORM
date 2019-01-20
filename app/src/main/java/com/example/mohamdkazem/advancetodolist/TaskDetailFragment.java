@@ -60,7 +60,7 @@ public class TaskDetailFragment extends Fragment {
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
         UUID jobId= (UUID) getArguments().getSerializable(ARG_JOB_ID);
-            mTask = TasksRepository.getInstance(getActivity()).getTask(jobId);
+//            mTask = TasksRepository.getInstance(getActivity()).getTask(jobId);
 
     }
 

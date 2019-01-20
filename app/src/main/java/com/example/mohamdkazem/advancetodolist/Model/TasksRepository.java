@@ -5,6 +5,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.Toast;
 
 import com.example.mohamdkazem.advancetodolist.App;
@@ -24,6 +25,7 @@ public class TasksRepository {
     private Context mContext;
     private   DaoSession daoSession=App.getApp().getDaoSession();
     private   UsersDao usersDao=daoSession.getUsersDao();
+    private TaskDao taskDao=daoSession.getTaskDao();
 
     private TasksRepository(Context context) {
         mContext = context.getApplicationContext();
@@ -37,95 +39,95 @@ public class TasksRepository {
         return tasksRepository;
     }
 
-    public List<Task> getTaskList() {
-        List<Task> taskList = new ArrayList<>();
-        String whereClause = TaskDbSchema.TasksTable.tasksCols.USER_ID + " = " + ToDoListActivity.mId;
-        Cursor cursor = mDataBase.query(TaskDbSchema.TasksTable.NAME, null, whereClause, null, null, null, null, null);
-
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                UUID uuid = UUID.fromString(cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.UUID)));
-                String title = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TITLE));
-                String detail = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DETAIL));
-                Date date = new Date(cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DATE)));
-                long time = cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TIME));
-                boolean done = cursor.getInt(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DONE)) != 0;
-
-                Task task = new Task(title, detail, uuid);
-                task.setMDone(done);
-                task.setMDate(date);
-                task.setMTime(time);
-                taskList.add(task);
-
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return taskList;
-    }
-
-    public List<Task> getDoneTaskList(){
-        List<Task> taskList = new ArrayList<>();
-        String whereClause = TaskDbSchema.TasksTable.tasksCols.DONE + " = " + 1 + " AND " + TaskDbSchema.TasksTable.tasksCols.USER_ID + " = " + ToDoListActivity.mId;
-        Cursor cursor = mDataBase.query(TaskDbSchema.TasksTable.NAME, null, whereClause, null, null, null, null, null);
-
-        try {
-            cursor.moveToFirst();
-            while (!cursor.isAfterLast()) {
-                UUID uuid = UUID.fromString(cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.UUID)));
-                String title = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TITLE));
-                String detail = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DETAIL));
-                Date date = new Date(cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DATE)));
-                long time = cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TIME));
-                boolean done = cursor.getInt(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DONE)) != 0;
-
-                Task task = new Task(title, detail, uuid);
-                task.setMDone(done);
-                task.setMDate(date);
-                task.setMTime(time);
-                taskList.add(task);
-
-                cursor.moveToNext();
-            }
-        } finally {
-            cursor.close();
-        }
-
-        return taskList;
-    }
-    public Task getTask(UUID id) {
-
-        String whereClause = TaskDbSchema.TasksTable.tasksCols.UUID + " = ?" ;
-        String[] whereArgs = new String[]{id.toString()};
-        Cursor cursor = mDataBase.query(TaskDbSchema.TasksTable.NAME, null, whereClause, whereArgs, null, null, null, null);
-
-        try {
-            if (cursor.getCount() == 0) {
-                return null;
-            }
-            cursor.moveToFirst();
-
-            UUID uuid = UUID.fromString(cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.UUID)));
-            String title = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TITLE));
-            String detail = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DETAIL));
-            Date date = new Date(cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DATE)));
-            long time = cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TIME));
-            boolean done = cursor.getInt(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DONE)) != 0;
-
-            Task task = new Task(title, detail, uuid);
-            task.setMDone(done);
-            task.setMDate(date);
-            task.setMTime(time);
-
-            return task;
-        } finally {
-            cursor.close();
-        }
-
-    }
+//    public List<Task> getTaskList() {
+//        List<Task> taskList = new ArrayList<>();
+//        String whereClause = TaskDbSchema.TasksTable.tasksCols.USER_ID + " = " + ToDoListActivity.mId;
+//        Cursor cursor = mDataBase.query(TaskDbSchema.TasksTable.NAME, null, whereClause, null, null, null, null, null);
+//
+//        try {
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()) {
+//                UUID uuid = UUID.fromString(cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.UUID)));
+//                String title = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TITLE));
+//                String detail = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DETAIL));
+//                Date date = new Date(cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DATE)));
+//                long time = cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TIME));
+//                boolean done = cursor.getInt(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DONE)) != 0;
+//
+//                Task task = new Task(title, detail, uuid);
+//                task.setMDone(done);
+//                task.setMDate(date);
+//                task.setMTime(time);
+//                taskList.add(task);
+//
+//                cursor.moveToNext();
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//
+//        return taskList;
+//    }
+//
+//    public List<Task> getDoneTaskList(){
+//        List<Task> taskList = new ArrayList<>();
+//        String whereClause = TaskDbSchema.TasksTable.tasksCols.DONE + " = " + 1 + " AND " + TaskDbSchema.TasksTable.tasksCols.USER_ID + " = " + ToDoListActivity.mId;
+//        Cursor cursor = mDataBase.query(TaskDbSchema.TasksTable.NAME, null, whereClause, null, null, null, null, null);
+//
+//        try {
+//            cursor.moveToFirst();
+//            while (!cursor.isAfterLast()) {
+//                UUID uuid = UUID.fromString(cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.UUID)));
+//                String title = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TITLE));
+//                String detail = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DETAIL));
+//                Date date = new Date(cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DATE)));
+//                long time = cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TIME));
+//                boolean done = cursor.getInt(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DONE)) != 0;
+//
+//                Task task = new Task(title, detail, uuid);
+//                task.setMDone(done);
+//                task.setMDate(date);
+//                task.setMTime(time);
+//                taskList.add(task);
+//
+//                cursor.moveToNext();
+//            }
+//        } finally {
+//            cursor.close();
+//        }
+//
+//        return taskList;
+//    }
+//    public Task getTask(UUID id) {
+//
+//        String whereClause = TaskDbSchema.TasksTable.tasksCols.UUID + " = ?" ;
+//        String[] whereArgs = new String[]{id.toString()};
+//        Cursor cursor = mDataBase.query(TaskDbSchema.TasksTable.NAME, null, whereClause, whereArgs, null, null, null, null);
+//
+//        try {
+//            if (cursor.getCount() == 0) {
+//                return null;
+//            }
+//            cursor.moveToFirst();
+//
+//            UUID uuid = UUID.fromString(cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.UUID)));
+//            String title = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TITLE));
+//            String detail = cursor.getString(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DETAIL));
+//            Date date = new Date(cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DATE)));
+//            long time = cursor.getLong(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.TIME));
+//            boolean done = cursor.getInt(cursor.getColumnIndex(TaskDbSchema.TasksTable.tasksCols.DONE)) != 0;
+//
+//            Task task = new Task(title, detail, uuid);
+//            task.setMDone(done);
+//            task.setMDate(date);
+//            task.setMTime(time);
+//
+//            return task;
+//        } finally {
+//            cursor.close();
+//        }
+//
+//    }
     public void delete(Task task) {
         String whereClause = TaskDbSchema.TasksTable.tasksCols.UUID + " = ? ";
         mDataBase.delete(TaskDbSchema.TasksTable.NAME, whereClause, new String[]{task.getUserId().toString()});
@@ -219,8 +221,6 @@ public class TasksRepository {
     public void addUserORM(Users users){
         usersDao.insert(users);
     }
-
-
     public boolean loginUser(String userName, String passWord) {
         List<Users> usersList = usersDao.loadAll();
         Users users=null;
@@ -232,7 +232,6 @@ public class TasksRepository {
         }
         return false;
     }
-
     public Long getUserId(String name,String pass){
         Long userId ;
         List<Users> usersList = usersDao.loadAll();
@@ -243,6 +242,18 @@ public class TasksRepository {
             }
         }
         return null;
+
+    }
+
+    public List<Task> getTaskListORM(){
+        List<Task> taskList=new ArrayList<>();
+        taskList=taskDao.loadAll();
+
+        return taskList;
+
+    }
+    public void addTaskORM(Task task){
+        taskDao.insert(task);
 
     }
 

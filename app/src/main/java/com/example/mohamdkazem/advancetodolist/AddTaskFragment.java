@@ -57,7 +57,7 @@ public class AddTaskFragment extends DialogFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mTasks = TasksRepository.getInstance(getActivity()).getTaskList();
+        mTasks = TasksRepository.getInstance(getActivity()).getTaskListORM();
     }
 
 
@@ -113,7 +113,8 @@ public class AddTaskFragment extends DialogFragment {
                     String detail= mEditTextDetail.getText().toString();
                     mTask =new Task(title,detail,myDate);
 
-                        TasksRepository.getInstance(getActivity()).addToAllList(mTask);
+//                        TasksRepository.getInstance(getActivity()).addToAllList(mTask);
+                        TasksRepository.getInstance(getActivity()).addTaskORM(mTask);
                         getActivity().getSupportFragmentManager().getFragments().get(1).onActivityResult(1, Activity.RESULT_OK, new Intent());
                         getActivity().getSupportFragmentManager().getFragments().get(0).onActivityResult(0, Activity.RESULT_OK, new Intent());
                         dismiss();
