@@ -70,7 +70,7 @@ public class ShowTAskDetailDialog extends DialogFragment {
             @Override
             public void onClick(View v) {
                 dismiss();
-                Intent intent=TaskDetailActivity.newIntent(getActivity(),mTask);
+                Intent intent=TaskDetailActivity.newIntent(getActivity(),taskId);
 //                startActivity(intent);
                 startActivityForResult(intent,REQ_DETAIL);
             }

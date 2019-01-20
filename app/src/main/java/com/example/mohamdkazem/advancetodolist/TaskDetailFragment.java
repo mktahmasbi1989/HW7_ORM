@@ -34,11 +34,13 @@ public class TaskDetailFragment extends Fragment {
     private static final int REQ_COD_DATE = 11;
     private static final int REQ_COD_TIME =12 ;
     private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.time dialog" ;
+    private static final String ARG_USER_ID = "user_Id";
 
     private Button mBtnEdite,mBtnDelete,mBtnDone;
     private TextView mTextViewDate,mTextViewTime;
     private EditText mTextViewDescribtion,mTextTextViewTitle;
     private Task mTask;
+    private  Long userId;
 
 
 
@@ -46,10 +48,10 @@ public class TaskDetailFragment extends Fragment {
         // Required empty public constructor
     }
 
-    public static TaskDetailFragment newInstance(Long jobId) {
+    public static TaskDetailFragment newInstance(Long id) {
 
         Bundle args = new Bundle();
-        args.putSerializable(ARG_JOB_ID,jobId);
+        args.putLong(ARG_USER_ID,id);
         TaskDetailFragment fragment = new TaskDetailFragment();
         fragment.setArguments(args);
         return fragment;
@@ -59,7 +61,9 @@ public class TaskDetailFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         assert getArguments() != null;
-        UUID jobId= (UUID) getArguments().getSerializable(ARG_JOB_ID);
+        userId=getArguments().getLong(ARG_USER_ID);
+        mTask=TasksRepository.getInstance(getActivity()).getTaskORm(userId);
+//        UUID jobId= (UUID) getArguments().getSerializable(ARG_JOB_ID);
 //            mTask = TasksRepository.getInstance(getActivity()).getTask(jobId);
 
     }
