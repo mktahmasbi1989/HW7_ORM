@@ -251,6 +251,18 @@ public class TasksRepository {
         return taskList;
     }
 
+    public List<Task> getDoneTaskListORM(){
+        List<Task> taskList=new ArrayList<>();
+        List<Task> doneList=new ArrayList<>();
+        taskList=taskDao.loadAll();
+        for (int i = 0; i <taskList.size() ; i++) {
+            if (taskList.get(i).getMDone()){
+                doneList.add(taskList.get(i));
+            }
+        }
+        return doneList;
+    }
+
     public List<Task> getUserTaskListORM(Long userId){
         List<Task> taskList=new ArrayList<>();
         taskList=taskDao.loadAll();

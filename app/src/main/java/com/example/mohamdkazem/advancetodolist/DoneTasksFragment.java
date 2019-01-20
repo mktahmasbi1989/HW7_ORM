@@ -66,7 +66,7 @@ public class DoneTasksFragment extends Fragment {
 
     private void upDateUI() {
 
-            List<Task> mListTask = TasksRepository.getInstance(getActivity()).getTaskListORM();
+            List<Task> mListTask = TasksRepository.getInstance(getActivity()).getDoneTaskListORM();
             if (mDonJobAdaptor == null) {
                 mDonJobAdaptor = new DonJobAdaptor(mListTask);
                 mRecyclerView.setAdapter(mDonJobAdaptor);
