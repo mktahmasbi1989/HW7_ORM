@@ -212,25 +212,25 @@ public class AllTasksFragment extends Fragment {
             mFirstChar=itemView.findViewById(R.id.firstChar);
             mBtnShare=itemView.findViewById(R.id.btn_share);
 
-//            mBtnShare.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent reportIntent = new Intent(Intent.ACTION_SEND);
-//                    reportIntent.setType("text/plain");
-//
-//                    String dateString = new SimpleDateFormat("yyyy/MM/dd").format(mTask.getMDate());
-//                    String doneTask = mTask.getMDone() ? ("Is Done") : ("Is Not Done");
-//                    String shareContent=mTask.getMTitle()+"  "+ mTask.getMDetail()+"  "+dateString+"  " +doneTask;
-//                    reportIntent.putExtra(Intent.EXTRA_TEXT, shareContent);
-//                    reportIntent.putExtra(Intent.EXTRA_SUBJECT, "sdfsdf");
-//                    startActivity(Intent.createChooser(reportIntent, "Share Whit"));
-//
-//
-//
-//
-//
-//                }
-//            });
+            mBtnShare.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent reportIntent = new Intent(Intent.ACTION_SEND);
+                    reportIntent.setType("text/plain");
+
+                    String dateString = new SimpleDateFormat("yyyy/MM/dd").format(mTask.getMDate());
+                    String doneTask = mTask.getMDone() ? ("Is Done") : ("Is Not Done");
+                    String shareContent=mTask.getMTitle()+"  "+ mTask.getMDetail()+"  "+dateString+"  " +doneTask;
+                    reportIntent.putExtra(Intent.EXTRA_TEXT, shareContent);
+                    reportIntent.putExtra(Intent.EXTRA_SUBJECT, "my Task");
+                    startActivity(Intent.createChooser(reportIntent, "Share Whit"));
+
+
+
+
+
+                }
+            });
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

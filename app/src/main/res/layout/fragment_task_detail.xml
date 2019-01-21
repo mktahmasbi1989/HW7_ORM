@@ -14,39 +14,39 @@
 
     <EditText
         android:id="@+id/textView_title_detail"
-        android:layout_width="match_parent"
+        android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="12dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.963"
         app:layout_constraintStart_toStartOf="parent"
         tools:text="description" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="match_parent"
+        android:layout_width="111dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:padding="16dp"
         android:text="عنوان"
         android:textSize="20sp"
         app:layout_constraintBottom_toTopOf="@+id/textView_title_detail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/textView7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         android:padding="16dp"
         android:text="توضیحات"
         android:textSize="20sp"
@@ -58,9 +58,9 @@
         android:id="@+id/textView_description"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -70,10 +70,10 @@
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="43dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         android:padding="8dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout6"
@@ -99,7 +99,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginBottom="64dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal"
         android:padding="16dp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout5"
@@ -122,8 +122,8 @@
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="320dp"
-        android:layout_height="wrap_content"
+        android:layout_width="272dp"
+        android:layout_height="68dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
@@ -140,10 +140,9 @@
             android:layout_weight="1"
             android:drawableStart="@android:drawable/ic_menu_edit"
             android:padding="4dp"
-            android:text="@string/edite_textView"
+            android:text="Done"
             android:textColor="@color/ic_launcher_background"
-            android:textSize="12sp"
-            />
+            android:textSize="12sp" />
 
         <Button
             android:id="@+id/btn_delete"
@@ -154,7 +153,7 @@
             android:background="@android:color/holo_red_dark"
             android:drawableStart="@android:drawable/ic_menu_delete"
             android:padding="4dp"
-            android:text="@string/delete_textView"
+            android:text="Done"
             android:textColor="@color/ic_launcher_background"
             android:textSize="12sp" />
 
@@ -167,8 +166,36 @@
             android:background="@android:color/holo_green_dark"
             android:drawableStart="@android:drawable/checkbox_on_background"
             android:padding="4dp"
-            android:text="@string/done_textView"
+            android:text="Done"
             android:textColor="@color/ic_launcher_background"
             android:textSize="12sp" />
     </LinearLayout>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginBottom="8dp"
+        android:src="@color/colorAccent"
+        app:layout_constraintBottom_toTopOf="@+id/textView_title_detail"
+        app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btn_take_photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="5dp"
+        android:layout_marginBottom="8dp"
+        android:text="take photo"
+        app:layout_constraintBottom_toTopOf="@+id/textView7"
+        app:layout_constraintEnd_toStartOf="@+id/textView_title_detail"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView3" />
 </android.support.constraint.ConstraintLayout>
