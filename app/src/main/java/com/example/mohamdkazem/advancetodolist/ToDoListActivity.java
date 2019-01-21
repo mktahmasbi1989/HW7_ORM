@@ -2,13 +2,16 @@ package com.example.mohamdkazem.advancetodolist;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Toast;
 
 public class ToDoListActivity extends AppCompatActivity {
@@ -25,6 +28,7 @@ public class ToDoListActivity extends AppCompatActivity {
         return intent;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +47,8 @@ public class ToDoListActivity extends AppCompatActivity {
                 } else return DoneTasksFragment.newInstance();
             }
 
+
+
             @Nullable
             @Override
             public CharSequence getPageTitle(int position) {
@@ -55,6 +61,7 @@ public class ToDoListActivity extends AppCompatActivity {
             }
 
         });
+
     }
 
 

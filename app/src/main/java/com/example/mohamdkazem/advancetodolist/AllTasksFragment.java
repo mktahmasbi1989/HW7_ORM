@@ -12,6 +12,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +28,7 @@ import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 import com.example.mohamdkazem.advancetodolist.Model.Users;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -78,10 +80,50 @@ public class AllTasksFragment extends Fragment {
     }
 
     @Override
-    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+    public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu,menu);
+        MenuItem search = menu.findItem(R.id.action_search);
+        SearchView taskSearch = (SearchView) search.getActionView();
+        taskSearch.setQueryHint("Search Task");
+        taskSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+
+                return true;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String text) {
+                List<Task> list = TasksRepository.getInstance(getContext()).getUserTaskListORM(setUsersId.getUserId());
+                List<Task> searchTaskList = new ArrayList<>();
+                if (text != null || !text.equals("")) {
+
+                    for (int i = 0; i < list.size(); i++) {
+                        if (list.get(i).getMTitle().contains(text)) {
+                            searchTaskList.add(list.get(i));
+                        }
+
+                    }
+                    mJobAdaptor.setTasks(searchTaskList);
+                    mJobAdaptor.notifyDataSetChanged();
+
+                } else {
+                        return false;
+
+                }
+
+            return true;
+            }
+        });
+
     }
+
+
+
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -144,13 +186,6 @@ public class AllTasksFragment extends Fragment {
     }
 
 
-    private void init(View view) {
-        mRecyclerView=view.findViewById(R.id.recycleView);
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mFloatingActionButton=view.findViewById(R.id.btn_action);
-        mTextViewNoTask=view.findViewById(R.id.no_task_textview);
-    }
-
     private void upDateUI() {
 
             List<Task> mListTask = TasksRepository.getInstance(getActivity()).getUserTaskListORM((setUsersId.getUserId()));
@@ -162,20 +197,20 @@ public class AllTasksFragment extends Fragment {
                 mRecyclerView.setAdapter(mJobAdaptor);
             } else
                 mJobAdaptor.setTasks(mListTask);
-            mJobAdaptor.notifyDataSetChanged();
+                mJobAdaptor.notifyDataSetChanged();
 
     }
 
     private class JobAdaptor extends RecyclerView.Adapter<JobHolder>{
 
         private List<Task> mTasks;
+
         JobAdaptor(List<Task> mListTask) {
             mTasks = mListTask;
         }
         public void setTasks(List<Task> tasks) {
             mTasks= tasks;
         }
-
         @NonNull
         @Override
         public JobHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
@@ -196,9 +231,11 @@ public class AllTasksFragment extends Fragment {
         public int getItemCount() {
             return mTasks.size();
         }
-    }
 
+
+    }
     private class JobHolder extends RecyclerView.ViewHolder{
+
         private TextView mTitle,mDetail,mFirstChar;
         private Task mTask;
         private Button mBtnShare;
@@ -252,12 +289,18 @@ public class AllTasksFragment extends Fragment {
 
 
 
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode==0){
             upDateUI();
         }
+    }
+
+    private void init(View view) {
+        mRecyclerView=view.findViewById(R.id.recycleView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        mFloatingActionButton=view.findViewById(R.id.btn_action);
+        mTextViewNoTask=view.findViewById(R.id.no_task_textview);
     }
 
 
