@@ -184,10 +184,7 @@ public class TaskDetailFragment extends Fragment {
                         PackageManager.MATCH_DEFAULT_ONLY);
 
                 for (ResolveInfo activity : activities) {
-                    getActivity().grantUriPermission(
-                            activity.activityInfo.packageName,
-                            uri,
-                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                    getActivity().grantUriPermission(activity.activityInfo.packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
                 }
 
                 startActivityForResult(captureIntent, REQ_PHOTOS);

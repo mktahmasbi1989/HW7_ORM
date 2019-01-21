@@ -22,13 +22,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 import com.example.mohamdkazem.advancetodolist.Model.Users;
-
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -81,47 +78,10 @@ public class AllTasksFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu,menu);
-
-        MenuItem search = menu.findItem(R.id.action_search);
-        SearchView taskSearch = (SearchView) search.getActionView();
-        taskSearch.setQueryHint("Search Task");
-        taskSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String text) {
-                List<Task> list = TasksRepository.getInstance(getContext()).getUserTaskListORM(setUsersId.getUserId());
-                List<Task> searchTaskList = new ArrayList<>();
-                if (text != null || !text.equals("")) {
-
-                    for (int i = 0; i < list.size(); i++) {
-                        if (list.get(i).getMTitle().contains(text)) {
-                            searchTaskList.add(list.get(i));
-                        }
-
-                    }
-                    mJobAdaptor.setTasks(searchTaskList);
-                    mJobAdaptor.notifyDataSetChanged();
-
-                } else
-                    {
-
-                    }
-
-            return true;
-            }
-        });
-
     }
 
     @Override
@@ -130,7 +90,6 @@ public class AllTasksFragment extends Fragment {
         switch (item.getItemId()) {
             case R.id.delete_all_menu:
                 deleteAllDialog();
-
                 return  true;
             case R.id.exit_menu:
                 ExitDialog();
@@ -138,16 +97,8 @@ public class AllTasksFragment extends Fragment {
             case R.id.search:
                 SearchDialog searchDialog=SearchDialog.newInstance();
                 searchDialog.show(getFragmentManager(),TAG_SEARCH_DIALOG);
-
-
-
-//                ShowTaskDetailDialog showTaskDetailDialog =ShowTaskDetailDialog.newInstance(mTask.getTaskId());
-//                showTaskDetailDialog.show(getFragmentManager(),TAG_DIALOG_DETAIL);
-
-
             default:
                 return  super.onOptionsItemSelected(item);
-
         }
     }
 
@@ -194,7 +145,6 @@ public class AllTasksFragment extends Fragment {
         }else getActivity().finish();
     }
 
-
     private void upDateUI() {
 
             List<Task> mListTask = TasksRepository.getInstance(getActivity()).getUserTaskListORM((setUsersId.getUserId()));
@@ -207,7 +157,6 @@ public class AllTasksFragment extends Fragment {
             } else
                 mJobAdaptor.setTasks(mListTask);
                 mJobAdaptor.notifyDataSetChanged();
-
     }
 
     private class JobAdaptor extends RecyclerView.Adapter<JobHolder>{
@@ -293,8 +242,6 @@ public class AllTasksFragment extends Fragment {
 
         }
     }
-
-
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

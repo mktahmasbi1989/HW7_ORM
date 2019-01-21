@@ -1,6 +1,7 @@
 package com.example.mohamdkazem.advancetodolist;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -9,11 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
+import com.example.mohamdkazem.advancetodolist.utils.PictureUtils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -24,6 +28,8 @@ public class ShowTaskDetailDialog extends DialogFragment {
     private TextView mTextTitle,mTextTime,mTextDetail,mTextDate;
     private Button mBtnEdit;
     private Long taskId;
+    private File mPhotoFile;
+    private ImageView mImgTask;
 
 
 
@@ -41,6 +47,7 @@ public class ShowTaskDetailDialog extends DialogFragment {
         super.onCreate(savedInstanceState);
         taskId=getArguments().getLong(ARG_TASK);
         mTask= TasksRepository.getInstance(getActivity()).getTaskORm(taskId);
+        mPhotoFile = TasksRepository.getInstance(getActivity()).getPhotoFile(mTask);
     }
 
     @Nullable
@@ -48,6 +55,15 @@ public class ShowTaskDetailDialog extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.task_detail_dialog,container,false);
         initDialog(view);
+        if (mPhotoFile == null || !mPhotoFile.exists()) {
+            mImgTask.setImageDrawable(null);
+        } else {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(
+                    mPhotoFile.getPath(),
+                    getActivity());
+
+            mImgTask.setImageBitmap(bitmap);
+        }
 
         mTextTitle.setText(mTask.getMTitle());
         mTextDetail.setText(mTask.getMDetail());
@@ -86,5 +102,6 @@ public class ShowTaskDetailDialog extends DialogFragment {
         mTextDate=view.findViewById(R.id.text_date_dialog);
         mTextTime=view.findViewById(R.id.text_time_dialog);
         mBtnEdit=view.findViewById(R.id.btn_edit_dialog);
+        mImgTask=view.findViewById(R.id.img_view_task);
     }
 }
