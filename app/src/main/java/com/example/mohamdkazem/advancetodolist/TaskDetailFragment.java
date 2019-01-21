@@ -76,8 +76,6 @@ public class TaskDetailFragment extends Fragment {
         userId=getArguments().getLong(ARG_USER_ID);
         mTask=TasksRepository.getInstance(getActivity()).getTaskORm(userId);
         mPhotoFile = TasksRepository.getInstance(getActivity()).getPhotoFile(mTask);
-//        UUID jobId= (UUID) getArguments().getSerializable(ARG_JOB_ID);
-//            mTask = TasksRepository.getInstance(getActivity()).getTask(jobId);
 
     }
 
@@ -87,6 +85,8 @@ public class TaskDetailFragment extends Fragment {
         // Inflate the layout for this fragment
         View view= inflater.inflate(R.layout.fragment_task_detail, container, false);
         init(view);
+        updatePhotoView();
+
         mTextTextViewTitle.setText(mTask.getMTitle());
         mTextViewDescribtion.setText(mTask.getMDetail());
         Date date= mTask.getMDate();
@@ -160,19 +160,12 @@ public class TaskDetailFragment extends Fragment {
         mBtnEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                mTask.setDetail(mTextViewDescribtion.getText().toString());
-//                TasksRepository.getInstance(getActivity()).upDateTask(mTask,mTask.getId());
-//                updateFragments();
                 mTask.setMTitle(mTextTextViewTitle.getText().toString());
                 mTask.setMDetail(mTextViewDescribtion.getText().toString());
-
                 TasksRepository.getInstance(getActivity()).upDateTask(mTask);
-//                    TasksRepository.getInstance(getActivity()).upDate(mTask);
                     Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), (setUsersId.getUserId())));
                     startActivity(intent);
-//                getActivity().getSupportFragmentManager().getFragments().get(1).onActivityResult(1, Activity.RESULT_OK,new Intent());
-//                getActivity().getSupportFragmentManager().getFragments().get(0).onActivityResult(0,Activity.RESULT_OK,new Intent());
-//                getActivity().getSupportFragmentManager().popBackStack();
+
             }
 
         });
@@ -246,6 +239,7 @@ public class TaskDetailFragment extends Fragment {
         }
         if (requestCode==REQ_PHOTOS){
             Uri uri = getPhotoFileUri();
+
             getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
             updatePhotoView();
         }
