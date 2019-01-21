@@ -5,7 +5,11 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mohamdkazem.advancetodolist.Model.Task;
@@ -21,6 +26,7 @@ import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 
 /**
@@ -35,9 +41,10 @@ public class TaskDetailFragment extends Fragment {
     private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.time dialog" ;
     private static final String ARG_USER_ID = "user_Id";
 
-    private Button mBtnEdit,mBtnDelete,mBtnDone;
+    private Button mBtnEdit,mBtnDelete,mBtnDone,mBtnTakePhoto;
     private TextView mTextViewDate,mTextViewTime;
     private EditText mTextViewDescribtion,mTextTextViewTitle;
+    private ImageView mImgTask;
     private Task mTask;
     private  Long userId;
 
@@ -162,6 +169,33 @@ public class TaskDetailFragment extends Fragment {
             }
 
         });
+
+        mBtnTakePhoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+//
+//                Uri uri = getPhotoFileUri();
+//                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+//
+//                PackageManager packageManager = getActivity().getPackageManager();
+//                List<ResolveInfo> activities = packageManager.queryIntentActivities(
+//                        captureIntent,
+//                        PackageManager.MATCH_DEFAULT_ONLY);
+//
+//                for (ResolveInfo activity : activities) {
+//                    getActivity().grantUriPermission(
+//                            activity.activityInfo.packageName,
+//                            uri,
+//                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+//                }
+//
+//                startActivityForResult(captureIntent, REQ_PHOTOS);
+//            }
+            }
+
+        });
+
         return view;
     }
 
@@ -179,6 +213,8 @@ public class TaskDetailFragment extends Fragment {
         mTextViewDate=view.findViewById(R.id.textView_date);
         mTextViewTime=view.findViewById(R.id.textView_time);
         mTextTextViewTitle=view.findViewById(R.id.textView_title_detail);
+        mBtnTakePhoto=view.findViewById(R.id.btn_take_photo);
+        mImgTask=view.findViewById(R.id.img_task);
     }
 
     @Override
