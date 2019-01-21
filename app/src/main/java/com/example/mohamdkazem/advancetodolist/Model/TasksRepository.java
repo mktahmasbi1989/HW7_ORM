@@ -242,7 +242,7 @@ public class TasksRepository {
 
     }
 
-    public List<Task> getTaskListORM(){
+    public List<Task> getAllTaskListORM(){
         List<Task> taskList=new ArrayList<>();
         taskList=taskDao.loadAll();
         return taskList;
@@ -275,10 +275,10 @@ public class TasksRepository {
         taskDao.insert(task);
 
     }
-    public Task getTaskORm(Long id){
+    public Task getTaskORm(Long taskId){
         List<Task> list=taskDao.loadAll();
         for (int i = 0; i <list.size() ; i++) {
-            if (list.get(i).getUserId().equals(id)){
+            if (list.get(i).getTaskId().equals(taskId)){
                 return list.get(i);
             }
         }
