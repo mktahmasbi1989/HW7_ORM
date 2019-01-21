@@ -55,15 +55,12 @@ public class SignUpFragment extends Fragment {
             }
         });
 
-
         return  view;
     }
 
     private void validation() {
         boolean flag=true;
-
         String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
-
         String userName=mEditTextName.getText().toString().trim();
         String passWord=mEditTextPass.getText().toString().trim();
         String email=mEditTextEmail.getText().toString().trim();

@@ -42,15 +42,13 @@ import java.util.List;
  */
 public class TaskDetailFragment extends Fragment {
 
-    private static final String ARG_JOB_ID = "com.example.mohamdkazem.advancetodolist.jobId";
-    private static final String DATE_DIALOG ="com.example.mohamdkazem.advancetodolist.date dialog" ;
+    private static final String DATE_DIALOG ="com.example.mohamdkazem.advancetodolist.dateDialog" ;
+    private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.timeDialog" ;
+    private static final String ARG_USER_ID = "com.example.mohamdkazem.advancetodolist.user_Id";
     private static final int REQ_COD_DATE = 11;
     private static final int REQ_COD_TIME =12 ;
-    private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.time dialog" ;
-    private static final String ARG_USER_ID = "user_Id";
     private static final int REQ_PHOTOS = 13;
     private static final int PICK_IMAGE = 14;
-    private static final String TAG = "tag";
 
     private Button mBtnEdit,mBtnDelete,mBtnDone,mBtnTakePhoto,mBtnPhotoGallery;
     private TextView mTextViewDate,mTextViewTime;
@@ -132,12 +130,9 @@ public class TaskDetailFragment extends Fragment {
                         .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-
-//                                    TasksRepository.getInstance(getActivity()).delete(mTask);
                                     TasksRepository.getInstance(getActivity()).removeTask(mTask);
-                                    Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(), setUsersId.getUserId()));
+                                    Intent intent=new Intent(ToDoListActivity.newIntent(getActivity()));
                                     startActivity(intent);
-
 
 
                             }
@@ -156,7 +151,7 @@ public class TaskDetailFragment extends Fragment {
 
             mTask.setMDone(true);
             TasksRepository.getInstance(getActivity()).setDoneTaskORM(mTask);
-            Intent intent=new Intent(ToDoListActivity.newIntent(getActivity(),setUsersId.getUserId()));
+            Intent intent=new Intent(ToDoListActivity.newIntent(getActivity()));
             startActivity(intent);
 
 
@@ -169,7 +164,7 @@ public class TaskDetailFragment extends Fragment {
                 mTask.setMTitle(mTextTextViewTitle.getText().toString());
                 mTask.setMDetail(mTextViewDescribtion.getText().toString());
                 TasksRepository.getInstance(getActivity()).upDateTask(mTask);
-                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), (setUsersId.getUserId())));
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity()));
                     startActivity(intent);
 
             }
@@ -271,8 +266,6 @@ public class TaskDetailFragment extends Fragment {
                 } catch (FileNotFoundException e) {
                     e.printStackTrace();
                 }
-
-
             }
         }
 

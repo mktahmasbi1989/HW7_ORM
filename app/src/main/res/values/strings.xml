@@ -43,4 +43,6 @@
     <string name="fakeUsername">fakeName</string>
     <string name="fakePassWord">fakePass</string>
     <string name="fakeEmail">fakeEmail</string>
+    <string name="all_list"><b>همه</b></string>
+    <string name="done_list"><b>انجام شده</b></string>
 </resources>

@@ -19,10 +19,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
-
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,7 +28,7 @@ import java.util.List;
 
 public class SearchDialog extends DialogFragment {
 
-    private String TAG_DIALOG_DETAIL="detail";
+    private String TAG_DIALOG_DETAIL="com.example.mohamdkazem.advancetodolist.detail";
 
     private RecyclerView mRecyclerView;
     private EditText editTextSearch;
@@ -76,43 +74,34 @@ public class SearchDialog extends DialogFragment {
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 List<Task> list = TasksRepository.getInstance(getContext()).getUserTaskListORM(setUsersId.getUserId());
                 List<Task> searchTaskList = new ArrayList<>();
                 if (s != null || !s.equals("")) {
-
                     for (int i = 0; i < list.size(); i++) {
                         if (list.get(i).getMTitle().contains(s) || list.get(i).getMDetail().contains(s)) {
                             searchTaskList.add(list.get(i));
                         }
-
                     }
                     taskAdaptor.setTasks(searchTaskList);
                     taskAdaptor.notifyDataSetChanged();
 
-                } else
-                {
+                } else{
 
                 }
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
-
         upDateUI();
-
         return view;
     }
     private void upDateUI() {
 
         List<Task> mListTask = TasksRepository.getInstance(getActivity()).getUserTaskListORM((setUsersId.getUserId()));
-
         if (taskAdaptor == null) {
             taskAdaptor = new TaskAdaptor(mListTask);
             mRecyclerView.setAdapter(taskAdaptor);
@@ -121,7 +110,6 @@ public class SearchDialog extends DialogFragment {
             taskAdaptor.notifyDataSetChanged();
         }
     }
-
 
     private class TaskAdaptor extends RecyclerView.Adapter<JobHolder>{
 

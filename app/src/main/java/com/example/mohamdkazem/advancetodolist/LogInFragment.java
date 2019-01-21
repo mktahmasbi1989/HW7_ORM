@@ -55,7 +55,7 @@ public class LogInFragment extends Fragment {
 
                     setUsersId.setUserId(TasksRepository.getInstance(getActivity()).getUserId(userName,passWord));
 
-                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), TasksRepository.getInstance(getActivity()).getUserId(userName,passWord)));
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity()));
                     startActivity(intent);
                     Toast.makeText(getActivity(), "Ok", Toast.LENGTH_SHORT).show();
                 }else

@@ -96,15 +96,11 @@ public class ShowTaskDetailDialog extends DialogFragment {
             public void onClick(View v) {
                 dismiss();
                 Intent intent=TaskDetailActivity.newIntent(getActivity(),taskId);
-//                startActivity(intent);
                 startActivityForResult(intent,REQ_DETAIL);
             }
         });
 
-
-
         return view;
-
 
     }
 

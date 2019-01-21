@@ -109,7 +109,6 @@ public class AllTasksFragment extends Fragment {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         TasksRepository.getInstance(getActivity()).deleteUserTasks(setUsersId.getUserId());
-//                        TasksRepository.getInstance(getActivity()).deleteAllTasks();
                         upDateUI();
                         getActivity().getSupportFragmentManager().getFragments().get(1).onActivityResult(1,Activity.RESULT_OK,new Intent());
                     }

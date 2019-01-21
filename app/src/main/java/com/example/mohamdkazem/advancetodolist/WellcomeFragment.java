@@ -10,7 +10,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.Toast;
 
 
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
@@ -26,9 +25,7 @@ public class WellcomeFragment extends Fragment {
     public static  Long userId;
 
     public static WellcomeFragment newInstance() {
-
         Bundle args = new Bundle();
-        
         WellcomeFragment fragment = new WellcomeFragment();
         fragment.setArguments(args);
         return fragment;
@@ -43,7 +40,6 @@ public class WellcomeFragment extends Fragment {
     public WellcomeFragment() {
         // Required empty public constructor
     }
-    
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -70,14 +66,14 @@ public class WellcomeFragment extends Fragment {
                     Users users = new Users(getString(R.string.fakeUsername), getString(R.string.fakePassWord), getString(R.string.fakeEmail));
                     TasksRepository.getInstance(getActivity()).addUserORM(users);
                     setUsersId.setUserId(users.getUserId());
-                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), users.getUserId()));
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity()));
                     startActivity(intent);
                     getActivity().finish();
 
                 } else {
                     Long userId= TasksRepository.getInstance(getActivity()).getUserId(getString(R.string.fakeUsername), getString(R.string.fakePassWord));
                     setUsersId.setUserId(userId);
-                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity(), userId));
+                    Intent intent = new Intent(ToDoListActivity.newIntent(getActivity()));
                     startActivity(intent);
                     getActivity().finish();
                 }
@@ -95,7 +91,6 @@ public class WellcomeFragment extends Fragment {
 
         return  view;
     }
-
 
 
     @Override

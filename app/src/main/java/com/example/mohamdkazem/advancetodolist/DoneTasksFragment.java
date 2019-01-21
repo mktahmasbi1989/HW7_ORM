@@ -15,10 +15,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
-
 import java.util.List;
 
 
@@ -26,10 +24,9 @@ import java.util.List;
  * A simple {@link Fragment} subclass.
  */
 public class DoneTasksFragment extends Fragment {
-    private static final String TAG_DIALOG = "dialog_detail";
+    private static final String TAG_DIALOG = "com.example.mohamdkazem.advancetodolist.dialog_detail";
     private RecyclerView mRecyclerView;
     private DonJobAdaptor mDonJobAdaptor;
-    private FloatingActionButton floatingActionButton;
 
     public DoneTasksFragment() {
         // Required empty public constructor
@@ -54,7 +51,7 @@ public class DoneTasksFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_all_tasks, container, false);
         mRecyclerView = view.findViewById(R.id.recycleView);
-        floatingActionButton=view.findViewById(R.id.btn_action);
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.btn_action);
         floatingActionButton.setVisibility(View.INVISIBLE);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         upDateUI();
@@ -87,7 +84,7 @@ public class DoneTasksFragment extends Fragment {
         DonJobAdaptor(List<Task> tasks) {
             mTasks = tasks;
         }
-        public void setTasks(List<Task> tasks) {
+        void setTasks(List<Task> tasks) {
             mTasks= tasks;
         }
 
@@ -96,8 +93,7 @@ public class DoneTasksFragment extends Fragment {
         public DonJobHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
             LayoutInflater inflater = LayoutInflater.from(getActivity());
             View view = inflater.inflate(R.layout.task_holder, viewGroup, false);
-            DonJobHolder donJobHolder = new DonJobHolder(view);
-            return donJobHolder;
+            return new DonJobHolder(view);
         }
 
         @Override

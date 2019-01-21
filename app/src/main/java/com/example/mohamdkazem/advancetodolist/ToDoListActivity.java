@@ -15,16 +15,15 @@ import android.view.View;
 import android.widget.Toast;
 
 public class ToDoListActivity extends AppCompatActivity {
-    private static final String USER_ID = "com.example.mohamdkazem.advancetodolist.userId";
     public TabLayout mTabLayout;
     private  ViewPager mViewPager;
     private String[] mTabTitles={"همه","انجام شده"};
     public static Long mId;
 
 
-    public static Intent newIntent(Context context, Long userId){
+    public static Intent newIntent(Context context){
         Intent intent=new Intent(context,ToDoListActivity.class);
-        intent.putExtra(USER_ID,userId);
+
         return intent;
     }
 
@@ -33,11 +32,8 @@ public class ToDoListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
-        mId= (Long) getIntent().getExtras().get(USER_ID);
-        String s= String.valueOf(mId);
-        Toast.makeText(this,s,Toast.LENGTH_LONG).show();
+        mId= setUsersId.getUserId();
         init();
-
 
         mViewPager.setAdapter(new FragmentStatePagerAdapter(getSupportFragmentManager()) {
             @Override
@@ -46,8 +42,6 @@ public class ToDoListActivity extends AppCompatActivity {
                     return AllTasksFragment.newInstance();
                 } else return DoneTasksFragment.newInstance();
             }
-
-
 
             @Nullable
             @Override
@@ -61,9 +55,7 @@ public class ToDoListActivity extends AppCompatActivity {
             }
 
         });
-
     }
-
 
     private void init() {
         mTabLayout=findViewById(R.id.tab);

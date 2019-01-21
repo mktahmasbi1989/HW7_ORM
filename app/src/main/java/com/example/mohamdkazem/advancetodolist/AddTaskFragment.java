@@ -15,10 +15,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
-
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -30,9 +28,9 @@ import java.util.List;
  */
 public class AddTaskFragment extends DialogFragment {
     private static final String DATE_PICKER = "com.example.mohamdkazem.advancetodolist.date_picker";
+    private static final String TAG_TIME_PICKER = "com.example.mohamdkazem.advancetodolist.time_picker";
     private static final int REQ_DATE_PICKER = 10;
     private static final int REQ_TIME_PICKER = 11;
-    private static final String TAG_TIME_PICKER = "com.example.mohamdkazem.advancetodolist.time_picker";
     private EditText mEditTextJobTitle, mEditTextDetail;
     private List<Task> mTasks;
     private Task mTask;
