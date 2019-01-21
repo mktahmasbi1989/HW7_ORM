@@ -15,6 +15,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,12 +23,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 import com.example.mohamdkazem.advancetodolist.utils.PictureUtils;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -45,8 +49,10 @@ public class TaskDetailFragment extends Fragment {
     private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.time dialog" ;
     private static final String ARG_USER_ID = "user_Id";
     private static final int REQ_PHOTOS = 13;
+    private static final int PICK_IMAGE = 14;
+    private static final String TAG = "tag";
 
-    private Button mBtnEdit,mBtnDelete,mBtnDone,mBtnTakePhoto;
+    private Button mBtnEdit,mBtnDelete,mBtnDone,mBtnTakePhoto,mBtnPhotoGallery;
     private TextView mTextViewDate,mTextViewTime;
     private EditText mTextViewDescribtion,mTextTextViewTitle;
     private ImageView mImgTask;
@@ -170,6 +176,16 @@ public class TaskDetailFragment extends Fragment {
 
         });
 
+        mBtnPhotoGallery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setType("image/*");
+                intent.setAction(Intent.ACTION_GET_CONTENT);
+                startActivityForResult(Intent.createChooser(intent, "Select Picture"), PICK_IMAGE);
+            }
+        });
+
         mBtnTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -218,27 +234,46 @@ public class TaskDetailFragment extends Fragment {
         mTextTextViewTitle=view.findViewById(R.id.textView_title_detail);
         mBtnTakePhoto=view.findViewById(R.id.btn_take_photo);
         mImgTask=view.findViewById(R.id.img_task);
+        mBtnPhotoGallery=view.findViewById(R.id.btn_garely);
+
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode==REQ_COD_DATE){
-            Date date= (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
-            mTask.setMDate(date);
-            setDateInTextView(date);
-            TasksRepository.getInstance(getActivity()).upDate(mTask);
-        }
-        if (requestCode==REQ_COD_TIME){
-            Date mdate= (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME_TAG);
-            mTask.setMDate(mdate);
-            setTimeInTextView(mdate);
-            TasksRepository.getInstance(getActivity()).upDate(mTask);
-        }
-        if (requestCode==REQ_PHOTOS){
-            Uri uri = getPhotoFileUri();
+        if (resultCode==Activity.RESULT_OK) {
 
-            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-            updatePhotoView();
+            if (requestCode == REQ_COD_DATE) {
+                Date date = (Date) data.getSerializableExtra(DatePickerDialog.EXTRA_DATE);
+                mTask.setMDate(date);
+                setDateInTextView(date);
+                TasksRepository.getInstance(getActivity()).upDate(mTask);
+            }
+            if (requestCode == REQ_COD_TIME) {
+                Date mdate = (Date) data.getSerializableExtra(TimePickerFragment.EXTRA_TIME_TAG);
+                mTask.setMDate(mdate);
+                setTimeInTextView(mdate);
+                TasksRepository.getInstance(getActivity()).upDate(mTask);
+            }
+            if (requestCode == REQ_PHOTOS) {
+                Uri uri = getPhotoFileUri();
+
+                getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                updatePhotoView();
+            }
+            if (requestCode == PICK_IMAGE) {
+                Uri selectedImageUri = data.getData();
+                try {
+                    InputStream imageStream = getActivity().getContentResolver().openInputStream(selectedImageUri);
+                    mTask.setImageUri(imageStream.toString());
+                    mTask.setImageUri(imageStream.toString());
+                    mImgTask.setImageURI(selectedImageUri);
+
+                } catch (FileNotFoundException e) {
+                    e.printStackTrace();
+                }
+
+
+            }
         }
 
     }

@@ -94,9 +94,6 @@ public class AllTasksFragment extends Fragment {
             case R.id.exit_menu:
                 ExitDialog();
                 return  true;
-            case R.id.search:
-                SearchDialog searchDialog=SearchDialog.newInstance();
-                searchDialog.show(getFragmentManager(),TAG_SEARCH_DIALOG);
             default:
                 return  super.onOptionsItemSelected(item);
         }

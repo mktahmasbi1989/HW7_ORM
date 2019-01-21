@@ -18,17 +18,13 @@ public class Task   {
     private Date mDate;
     private long mTime;
     private boolean mDone;
-
+    private String imageUri;
     @Id(autoincrement = true)
     private Long taskId;
-
     private Long userId;
-
     @ToOne(joinProperty = "userId")
     private Users users;
-
-
-
+    private String imgUri;
     /** Used to resolve relations */
     @Generated(hash = 2040040024)
     private transient DaoSession daoSession;
@@ -38,8 +34,6 @@ public class Task   {
     @Generated(hash = 73025128)
     private transient Long users__resolvedKey;
 
-
-    @Keep
     public Task(String title, String detail, Date myDate, Long userId) {
         this.mTitle=title;
         this.mDetail=detail;
@@ -49,17 +43,26 @@ public class Task   {
     }
 
 
-    @Generated(hash = 720224587)
-    public Task(String mTitle, String mDetail, Date mDate, long mTime,
-            boolean mDone, Long taskId, Long userId) {
+
+    @Generated(hash = 1575117249)
+    public Task(String mTitle, String mDetail, Date mDate, long mTime, boolean mDone,
+            String imageUri, Long taskId, Long userId, String imgUri) {
         this.mTitle = mTitle;
         this.mDetail = mDetail;
         this.mDate = mDate;
         this.mTime = mTime;
         this.mDone = mDone;
+        this.imageUri = imageUri;
         this.taskId = taskId;
         this.userId = userId;
+        this.imgUri = imgUri;
     }
+
+
+
+
+
+
 
 
     @Generated(hash = 733837707)
@@ -67,6 +70,19 @@ public class Task   {
     }
 
 
+
+
+
+
+
+
+    public String getImageUri() {
+        return imageUri;
+    }
+
+    public void setImageUri(String imageUri) {
+        this.imageUri = imageUri;
+    }
 
     public String getMTitle() {
         return this.mTitle;
@@ -187,6 +203,28 @@ public class Task   {
         String taskId= String.valueOf(getTaskId());
         return "IMG_" + userId+taskId + ".jpg";
     }
+
+
+    public String getImgUri() {
+        return this.imgUri;
+    }
+
+
+
+
+
+
+
+
+    public void setImgUri(String imgUri) {
+        this.imgUri = imgUri;
+    }
+
+
+
+
+
+
 
 
     /** called by internal mechanisms, do not call yourself. */

@@ -10,12 +10,6 @@
         android:id="@+id/exit_menu"
         android:title="@string/Exit"
         app:showAsAction="never"/>
-    <item android:id="@+id/action_search"
-        android:title="Search"
-        android:icon="@android:drawable/ic_menu_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="always" />
-
     <item android:title="serach"
         android:id="@+id/search"
         app:showAsAction="always"
