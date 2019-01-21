@@ -38,6 +38,7 @@ import java.util.List;
 public class AllTasksFragment extends Fragment {
 
     private static final String TAG_DIALOG_DETAIL ="com.example.mohamdkazem.advancetodolist.task detail" ;
+    private static final String TAG_SEARCH_DIALOG = "searchDialog";
     private RecyclerView mRecyclerView;
     private JobAdaptor mJobAdaptor;
     private FloatingActionButton mFloatingActionButton;
@@ -79,10 +80,13 @@ public class AllTasksFragment extends Fragment {
         return view;
     }
 
+
+
     @Override
     public void onCreateOptionsMenu(final Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
         inflater.inflate(R.menu.menu,menu);
+
         MenuItem search = menu.findItem(R.id.action_search);
         SearchView taskSearch = (SearchView) search.getActionView();
         taskSearch.setQueryHint("Search Task");
@@ -109,21 +113,16 @@ public class AllTasksFragment extends Fragment {
                     mJobAdaptor.setTasks(searchTaskList);
                     mJobAdaptor.notifyDataSetChanged();
 
-                } else {
-                        return false;
+                } else
+                    {
 
-                }
+                    }
 
             return true;
             }
         });
 
     }
-
-
-
-
-
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -136,6 +135,16 @@ public class AllTasksFragment extends Fragment {
             case R.id.exit_menu:
                 ExitDialog();
                 return  true;
+            case R.id.search:
+                SearchDialog searchDialog=SearchDialog.newInstance();
+                searchDialog.show(getFragmentManager(),TAG_SEARCH_DIALOG);
+
+
+
+//                ShowTaskDetailDialog showTaskDetailDialog =ShowTaskDetailDialog.newInstance(mTask.getTaskId());
+//                showTaskDetailDialog.show(getFragmentManager(),TAG_DIALOG_DETAIL);
+
+
             default:
                 return  super.onOptionsItemSelected(item);
 
@@ -234,11 +243,13 @@ public class AllTasksFragment extends Fragment {
 
 
     }
+
     private class JobHolder extends RecyclerView.ViewHolder{
 
         private TextView mTitle,mDetail,mFirstChar;
         private Task mTask;
         private Button mBtnShare;
+
         JobHolder(@NonNull final View itemView) {
             super(itemView);
             mTitle=itemView.findViewById(R.id.job_title_holder);
@@ -258,10 +269,6 @@ public class AllTasksFragment extends Fragment {
                     reportIntent.putExtra(Intent.EXTRA_TEXT, shareContent);
                     reportIntent.putExtra(Intent.EXTRA_SUBJECT, "my Task");
                     startActivity(Intent.createChooser(reportIntent, "Share Whit"));
-
-
-
-
 
                 }
             });
