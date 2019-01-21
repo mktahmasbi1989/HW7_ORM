@@ -13,6 +13,7 @@ import com.example.mohamdkazem.advancetodolist.ToDoListActivity;
 import com.example.mohamdkazem.advancetodolist.dataBase.TaskBaseHelper;
 import com.example.mohamdkazem.advancetodolist.dataBase.TaskDbSchema;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -213,6 +214,12 @@ public class TasksRepository {
     }
     public void setUsersDao(UsersDao usersDao) {
         this.usersDao = usersDao;
+    }
+
+    public File getPhotoFile(Task task) {
+        File filesDir = mContext.getFilesDir();
+        File photoFile = new File(filesDir, task.getPhotoName());
+        return photoFile;
     }
 
     public void addUserORM(Users users){

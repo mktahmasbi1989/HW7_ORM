@@ -7,12 +7,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.FileProvider;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,7 +25,9 @@ import android.widget.TextView;
 
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
+import com.example.mohamdkazem.advancetodolist.utils.PictureUtils;
 
+import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -40,6 +44,7 @@ public class TaskDetailFragment extends Fragment {
     private static final int REQ_COD_TIME =12 ;
     private static final String TIME_DIALOG ="com.example.mohamdkazem.advancetodolist.time dialog" ;
     private static final String ARG_USER_ID = "user_Id";
+    private static final int REQ_PHOTOS = 13;
 
     private Button mBtnEdit,mBtnDelete,mBtnDone,mBtnTakePhoto;
     private TextView mTextViewDate,mTextViewTime;
@@ -47,6 +52,7 @@ public class TaskDetailFragment extends Fragment {
     private ImageView mImgTask;
     private Task mTask;
     private  Long userId;
+    private File mPhotoFile;
 
 
 
@@ -69,6 +75,7 @@ public class TaskDetailFragment extends Fragment {
         assert getArguments() != null;
         userId=getArguments().getLong(ARG_USER_ID);
         mTask=TasksRepository.getInstance(getActivity()).getTaskORm(userId);
+        mPhotoFile = TasksRepository.getInstance(getActivity()).getPhotoFile(mTask);
 //        UUID jobId= (UUID) getArguments().getSerializable(ARG_JOB_ID);
 //            mTask = TasksRepository.getInstance(getActivity()).getTask(jobId);
 
@@ -173,30 +180,36 @@ public class TaskDetailFragment extends Fragment {
         mBtnTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                Intent captureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+                Uri uri = getPhotoFileUri();
+                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
+
+                PackageManager packageManager = getActivity().getPackageManager();
+                List<ResolveInfo> activities = packageManager.queryIntentActivities(
+                        captureIntent,
+                        PackageManager.MATCH_DEFAULT_ONLY);
+
+                for (ResolveInfo activity : activities) {
+                    getActivity().grantUriPermission(
+                            activity.activityInfo.packageName,
+                            uri,
+                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+                }
+
+                startActivityForResult(captureIntent, REQ_PHOTOS);
 //
-//                Uri uri = getPhotoFileUri();
-//                captureIntent.putExtra(MediaStore.EXTRA_OUTPUT, uri);
-//
-//                PackageManager packageManager = getActivity().getPackageManager();
-//                List<ResolveInfo> activities = packageManager.queryIntentActivities(
-//                        captureIntent,
-//                        PackageManager.MATCH_DEFAULT_ONLY);
-//
-//                for (ResolveInfo activity : activities) {
-//                    getActivity().grantUriPermission(
-//                            activity.activityInfo.packageName,
-//                            uri,
-//                            Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//                }
-//
-//                startActivityForResult(captureIntent, REQ_PHOTOS);
-//            }
             }
 
         });
 
         return view;
+    }
+
+    private Uri getPhotoFileUri() {
+        return FileProvider.getUriForFile(getActivity(),
+                "com.example.mohamdkazem.advancetodolist.fileprovider",
+                mPhotoFile);
     }
 
     private void updateFragments() {
@@ -230,7 +243,11 @@ public class TaskDetailFragment extends Fragment {
             mTask.setMDate(mdate);
             setTimeInTextView(mdate);
             TasksRepository.getInstance(getActivity()).upDate(mTask);
-
+        }
+        if (requestCode==REQ_PHOTOS){
+            Uri uri = getPhotoFileUri();
+            getActivity().revokeUriPermission(uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
+            updatePhotoView();
         }
 
     }
@@ -245,5 +262,16 @@ public class TaskDetailFragment extends Fragment {
         SimpleDateFormat simpleDateFormat=new SimpleDateFormat("yyyy-MM-dd");
         String formatDate=simpleDateFormat.format(date);
         mTextViewDate.setText(formatDate);
+    }
+    private void updatePhotoView() {
+        if (mPhotoFile == null || !mPhotoFile.exists()) {
+            mImgTask.setImageDrawable(null);
+        } else {
+            Bitmap bitmap = PictureUtils.getScaledBitmap(
+                    mPhotoFile.getPath(),
+                    getActivity());
+
+            mImgTask.setImageBitmap(bitmap);
+        }
     }
 }
