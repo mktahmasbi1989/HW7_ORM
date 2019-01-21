@@ -6,6 +6,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.example.mohamdkazem.advancetodolist.App;
@@ -306,6 +307,15 @@ public class TasksRepository {
         taskDao.update(task);
     }
 
+    public  void deleteUserTasks(Long userId){
+        List<Task> list=getUserTaskListORM(userId);
+        for (int i = 0; i <list.size() ; i++) {
+            Task task=list.get(i);
+            taskDao.delete(task);
+            }
+        }
 
-}
+    }
+
+
 

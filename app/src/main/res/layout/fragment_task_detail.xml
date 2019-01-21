@@ -5,7 +5,7 @@
     android:id="@+id/detail_fragment"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ic_launcher_background"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
     android:padding="16dp"
     tools:context=".TaskDetailFragment"
@@ -16,14 +16,11 @@
         android:id="@+id/textView_title_detail"
         android:layout_width="148dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="12dp"
         android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/textView7"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.963"
-        app:layout_constraintStart_toStartOf="parent"
         tools:text="description" />
 
     <TextView
@@ -122,7 +119,7 @@
 
     <LinearLayout
         android:id="@+id/linearLayout5"
-        android:layout_width="272dp"
+        android:layout_width="314dp"
         android:layout_height="68dp"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
@@ -138,11 +135,12 @@
             android:layout_height="match_parent"
             android:layout_margin="4dp"
             android:layout_weight="1"
+            android:background="@color/colorPrimary"
             android:drawableStart="@android:drawable/ic_menu_edit"
             android:padding="4dp"
-            android:text="Done"
+            android:text="ویرایش"
             android:textColor="@color/ic_launcher_background"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_delete"
@@ -153,9 +151,9 @@
             android:background="@android:color/holo_red_dark"
             android:drawableStart="@android:drawable/ic_menu_delete"
             android:padding="4dp"
-            android:text="Done"
+            android:text="حذف"
             android:textColor="@color/ic_launcher_background"
-            android:textSize="12sp" />
+            android:textSize="16sp" />
 
         <Button
             android:id="@+id/btn_done"
@@ -166,9 +164,9 @@
             android:background="@android:color/holo_green_dark"
             android:drawableStart="@android:drawable/checkbox_on_background"
             android:padding="4dp"
-            android:text="Done"
+            android:text="انجام شد"
             android:textColor="@color/ic_launcher_background"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
     </LinearLayout>
 
     <ImageView
@@ -179,36 +177,50 @@
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp"
-        android:src="@color/colorAccent"
+        android:src="@color/ic_launcher_background"
         app:layout_constraintBottom_toTopOf="@+id/textView_title_detail"
         app:layout_constraintEnd_toStartOf="@+id/textView4"
+        app:layout_constraintHorizontal_bias="0.06"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0" />
 
-    <Button
-        android:id="@+id/btn_take_photo"
-        android:layout_width="78dp"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="108dp"
+        android:layout_height="32dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="5dp"
-        android:layout_marginBottom="8dp"
-        android:text="take photo"
-        app:layout_constraintBottom_toTopOf="@+id/textView7"
-        app:layout_constraintEnd_toStartOf="@+id/textView_title_detail"
-        app:layout_constraintHorizontal_bias="0.85"
+        android:orientation="horizontal"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_task" />
+        app:layout_constraintTop_toBottomOf="@+id/img_task">
 
-    <Button
-        android:id="@+id/btn_garely"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:text="Gallery"
-        app:layout_constraintEnd_toStartOf="@+id/btn_take_photo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/img_task" />
+        <Button
+            android:id="@+id/btn_take_photo"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+
+            android:layout_weight="1"
+            android:background="@android:drawable/ic_menu_camera"
+            android:backgroundTint="@android:color/holo_orange_dark"
+            app:layout_constraintBottom_toTopOf="@+id/textView7"
+            app:layout_constraintEnd_toStartOf="@+id/textView_title_detail"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_task"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <Button
+            android:id="@+id/btn_garely"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="@android:drawable/ic_menu_gallery"
+            android:backgroundTint="@android:color/holo_red_light"
+            app:layout_constraintEnd_toStartOf="@+id/btn_take_photo"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/img_task" />
+
+    </LinearLayout>
+
+
 </android.support.constraint.ConstraintLayout>

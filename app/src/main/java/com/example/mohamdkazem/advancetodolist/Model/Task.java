@@ -197,35 +197,19 @@ public class Task   {
         myDao.update(this);
     }
 
-
     public String getPhotoName() {
         String userId= String.valueOf(getUserId());
         String taskId= String.valueOf(getTaskId());
         return "IMG_" + userId+taskId + ".jpg";
     }
 
-
     public String getImgUri() {
         return this.imgUri;
     }
 
-
-
-
-
-
-
-
     public void setImgUri(String imgUri) {
         this.imgUri = imgUri;
     }
-
-
-
-
-
-
-
 
     /** called by internal mechanisms, do not call yourself. */
     @Generated(hash = 1442741304)
@@ -233,7 +217,4 @@ public class Task   {
         this.daoSession = daoSession;
         myDao = daoSession != null ? daoSession.getTaskDao() : null;
     }
-
-
-
 }

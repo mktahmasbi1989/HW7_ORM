@@ -4,20 +4,34 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/ic_launcher_background"
+    android:background="@android:color/background_light"
     android:orientation="vertical"
     tools:layout_editor_absoluteY="81dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:orientation="vertical">
+        android:layout_height="75dp"
+        android:layout_margin="8dp"
+        android:foregroundGravity="center"
+        android:orientation="horizontal"
+        android:padding="8dp">
 
         <EditText
             android:id="@+id/edit_search"
-            android:layout_width="match_parent"
-            android:layout_height="75dp" />
+            android:layout_width="200dp"
+            android:layout_height="75dp"
+            android:foregroundGravity="center"
+            android:gravity="center" />
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:foregroundGravity="center"
+            android:text="جستجو"
+            android:textSize="24sp" />
 
     </LinearLayout>
 

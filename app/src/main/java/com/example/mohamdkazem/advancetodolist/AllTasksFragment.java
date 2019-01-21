@@ -94,6 +94,9 @@ public class AllTasksFragment extends Fragment {
             case R.id.exit_menu:
                 ExitDialog();
                 return  true;
+            case R.id.search:
+                SearchDialog searchDialog=SearchDialog.newInstance();
+                searchDialog.show(getFragmentManager(),TAG_SEARCH_DIALOG);
             default:
                 return  super.onOptionsItemSelected(item);
         }
@@ -105,7 +108,8 @@ public class AllTasksFragment extends Fragment {
                 .setPositiveButton("بله", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        TasksRepository.getInstance(getActivity()).deleteAllTasks();
+                        TasksRepository.getInstance(getActivity()).deleteUserTasks(setUsersId.getUserId());
+//                        TasksRepository.getInstance(getActivity()).deleteAllTasks();
                         upDateUI();
                         getActivity().getSupportFragmentManager().getFragments().get(1).onActivityResult(1,Activity.RESULT_OK,new Intent());
                     }
