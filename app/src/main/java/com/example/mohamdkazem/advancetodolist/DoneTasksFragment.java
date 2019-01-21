@@ -3,7 +3,6 @@ package com.example.mohamdkazem.advancetodolist;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -12,7 +11,6 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +20,6 @@ import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 
 import java.util.List;
-import java.util.Objects;
 
 
 /**
@@ -130,8 +127,8 @@ public class DoneTasksFragment extends Fragment {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ShowTAskDetailDialog showTAskDetailDialog=ShowTAskDetailDialog.newInstance(setUsersId.getUserId());
-                    showTAskDetailDialog.show(getFragmentManager(),TAG_DIALOG);
+                    ShowTaskDetailDialog showTaskDetailDialog =ShowTaskDetailDialog.newInstance(setUsersId.getUserId());
+                    showTaskDetailDialog.show(getFragmentManager(),TAG_DIALOG);
                 }
             });
         }

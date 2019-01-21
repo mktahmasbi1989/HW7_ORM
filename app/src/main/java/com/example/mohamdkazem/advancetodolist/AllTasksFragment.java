@@ -5,7 +5,6 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -26,8 +25,6 @@ import android.widget.Toast;
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 import com.example.mohamdkazem.advancetodolist.Model.Users;
-
-import org.greenrobot.greendao.annotation.ToOne;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -237,8 +234,8 @@ public class AllTasksFragment extends Fragment {
                 public void onClick(View v) {
                     String s= String.valueOf(mTask.getTaskId());
                     Toast.makeText(getActivity(),s,Toast.LENGTH_SHORT).show();
-                    ShowTAskDetailDialog showTAskDetailDialog=ShowTAskDetailDialog.newInstance(mTask.getTaskId());
-                    showTAskDetailDialog.show(getFragmentManager(),TAG_DIALOG_DETAIL);
+                    ShowTaskDetailDialog showTaskDetailDialog =ShowTaskDetailDialog.newInstance(mTask.getTaskId());
+                    showTaskDetailDialog.show(getFragmentManager(),TAG_DIALOG_DETAIL);
                 }
             });
         }

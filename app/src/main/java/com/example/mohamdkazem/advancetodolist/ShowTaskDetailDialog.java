@@ -14,11 +14,10 @@ import android.widget.TextView;
 import com.example.mohamdkazem.advancetodolist.Model.Task;
 import com.example.mohamdkazem.advancetodolist.Model.TasksRepository;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class ShowTAskDetailDialog extends DialogFragment {
+public class ShowTaskDetailDialog extends DialogFragment {
     private static final String ARG_TASK ="com.example.mohamdkazem.advancetodolist.task" ;
     private static final int REQ_DETAIL =10 ;
     private Task mTask;
@@ -28,10 +27,10 @@ public class ShowTAskDetailDialog extends DialogFragment {
 
 
 
-    public static ShowTAskDetailDialog newInstance(Long taskId) {
+    public static ShowTaskDetailDialog newInstance(Long taskId) {
         Bundle args = new Bundle();
         args.putSerializable(ARG_TASK, taskId);
-        ShowTAskDetailDialog fragment = new ShowTAskDetailDialog();
+        ShowTaskDetailDialog fragment = new ShowTaskDetailDialog();
         fragment.setArguments(args);
         return fragment;
     }
